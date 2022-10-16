@@ -1,6 +1,13 @@
 namespace: monk-vaultwarden
 
 vaultwarden:
+  metadata:
+    defines: metadata
+    name: Vault Warder
+    description: Alternative implementation of the Bitwarden server API written in Rust and compatible with upstream Bitwarden clients*, perfect for self-hosted deployment where running the official resource-heavy service might not be ideal.
+    website: https://github.com/dani-garcia/vaultwarden
+    publisher: monk.io
+    icon: logo.png
   defines: runnable
   variables:
     admin_token:
