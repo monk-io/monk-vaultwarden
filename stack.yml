@@ -1,0 +1,16 @@
+namespace: monk-vaultwarden
+
+stack:
+  defines: process-group
+  runnable-list:
+    - monk-vaultwarden/vaultwarden
+  variables:
+    vault_port:
+      type: int
+      value: 8084
+    vaultwarden_admin_token:
+      type: string
+      value: "monk"
+    vaultwarden_signup_enabled:
+      type: bool
+      value: true

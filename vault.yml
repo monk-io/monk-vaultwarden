@@ -1,0 +1,23 @@
+namespace: monk-vaultwarden
+
+vaultwarden:
+  defines: runnable
+  variables:
+    admin_token:
+      env: ADMIN_TOKEN
+      type: string
+      value: <- `${vaultwarden_admin_token}`
+    signup_enabled:
+      env: SIGNUPS_ALLOWED
+      type: boolean
+      value: <- `${vaultwarden_signup_enabled}`
+    volume_local:
+      type: string
+      value: <- `${monk-volume-path}/vaultwarder`
+  containers:
+    monk-vaultwarden:
+      image: 'vaultwarden/server:latest'
+      ports:
+        - <- `0.0.0.0:${vault_port}:80`
+      paths:
+        - <- `${volume_local}:/data/`

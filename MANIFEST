@@ -1,0 +1,2 @@
+REPO mssql
+LOAD vault.yml stack.yml
