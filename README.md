@@ -59,7 +59,7 @@ foo@bar:~$ monk run monk-vaultwarden/stack
        └─📦 ea6c156ea15b2d16212785bc68d53c2f-n-vaultwarden-monk-vaultwarden
           ├─🧩 vaultwarden/server:latest
           ├─💾 /var/lib/monkd/volumes/vaultwarder -> /data/
-          └─🔌 open 13.49.137.107:8084 (0.0.0.0:8084) -> 80
+          └─🔌 open <ip>:8084 (0.0.0.0:8084) -> 80
 
 💡 You can inspect and manage your above stack with these commands:
  monk logs (-f) local/monk-vaultwarden/stack - Inspect logs
@@ -70,7 +70,11 @@ foo@bar:~$ monk run monk-vaultwarden/stack
 
 ## Check web gui
 
-`http://13.49.137.107:8084/`
+`http://<ip>:8084/`
+
+## Check admin web gui
+
+`http://<ip>:8084/admin`
 
 ## Variables
 

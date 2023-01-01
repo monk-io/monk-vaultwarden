@@ -22,7 +22,7 @@ vaultwarden:
       type: string
       value: <- `${monk-volume-path}/vaultwarder`
   containers:
-    monk-vaultwarden:
+    monk-warden:
       image: 'vaultwarden/server:latest'
       ports:
         - <- `0.0.0.0:${vault_port}:80`
@@ -30,7 +30,7 @@ vaultwarden:
         - <- `${volume_local}:/data/`
   services:
     vaultwarden-svc:
-      container: monk-vaultwarden
+      container: monk-warden
       port: 80
       protocol: tcp
       host-port: <- `${vault_port}`
