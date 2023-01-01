@@ -1,13 +1,16 @@
 # Vaultwarden & Monk
+
 This repository contains Monk.io template to deploy Vaultwarden & Monk either locally or on cloud of your choice (AWS, GCP, Azure, Digital Ocean).
 
-# Prerequisites
+## Prerequisites
+
 - [Install Monk](https://docs.monk.io/docs/get-monk)
 - [Register and Login Monk](https://docs.monk.io/docs/acc-and-auth)
 - [Add Cloud Provider](https://docs.monk.io/docs/cloud-provider)
 - [Add Instance](https://docs.monk.io/docs/multi-cloud)
 
-#### Make sure monkd is running.
+### Make sure monkd is running
+
 ```bash
 foo@bar:~$ monk status
 daemon: ready
@@ -16,18 +19,20 @@ not connected to cluster
 ```
 
 ## Clone Repository
+
 ```bash
-git clone https://github.com/Burakhan/monk-vaultwarden
+git clone https://github.com/monk-io/monk-vaultwarden
 ```
 
 ## Load Template
+
 ```bash
 cd monk-vaultwarden
 monk load MANIFEST
 ```
 
+### Let's take a look at the themes I have installed
 
-#### Let's take a look at the themes I have installed.
 ```bash
 foo@bar:~$ monk list monk-vaultwarden
 ✔ Got the list
@@ -37,6 +42,7 @@ runnable  monk-vaultwarden/vaultwarden  local       -        -
 ```
 
 ## Deploy Stack
+
 ```bash
 foo@bar:~$ monk run monk-vaultwarden/stack
 ? Select tag to run [local/monk-vaultwarden/stack] on: mnk
@@ -56,32 +62,28 @@ foo@bar:~$ monk run monk-vaultwarden/stack
           └─🔌 open 13.49.137.107:8084 (0.0.0.0:8084) -> 80
 
 💡 You can inspect and manage your above stack with these commands:
-	monk logs (-f) local/monk-vaultwarden/stack - Inspect logs
-	monk shell     local/monk-vaultwarden/stack - Connect to the container's shell
-	monk do        local/monk-vaultwarden/stack/action_name - Run defined action (if exists)
+ monk logs (-f) local/monk-vaultwarden/stack - Inspect logs
+ monk shell     local/monk-vaultwarden/stack - Connect to the container's shell
+ monk do        local/monk-vaultwarden/stack/action_name - Run defined action (if exists)
 💡 Check monk help for more!
 ```
+
 ## Check web gui
 
 `http://13.49.137.107:8084/`
 
-
-
 ## Variables
+
 The variables are in `stack.yml` file. You can quickly setup by editing the values here.
 
-| Variable                     	| Description                               	|
-|------------------------------	|-------------------------------------------	|
-| vault_port                    | Vault Warden port, Default: 8084 	               |
-| vaultwarden_signup_enabled                    | Signup enable, Default: true 	               |
-| vaultwarden_admin_token                    | admin password, Default: monk 	               |
-
-
-
+| Variable                     | Description       | Default |
+| ---------------------------- | ----------------- | ------- |
+| vaultwarden_signup_enabled | Signup enable     | true    |
+| vault_port                  | Vault Warden port | 8084    |
+| vaultwarden_admin_token    | Vault Admin token | monk    |
 
 ## Stop, remove and clean up workloads and templates
 
 ```bash
-monk purge -x -a
+monk purge monk-vaultwarden
 ```
-

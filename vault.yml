@@ -16,7 +16,7 @@ vaultwarden:
       value: <- `${vaultwarden_admin_token}`
     signup_enabled:
       env: SIGNUPS_ALLOWED
-      type: boolean
+      type: bool
       value: <- `${vaultwarden_signup_enabled}`
     volume_local:
       type: string
@@ -28,3 +28,9 @@ vaultwarden:
         - <- `0.0.0.0:${vault_port}:80`
       paths:
         - <- `${volume_local}:/data/`
+  services:
+    vaultwarden-svc:
+      container: monk-vaultwarden
+      port: 80
+      protocol: tcp
+      host-port: <- `${vault_port}`
