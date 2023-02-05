@@ -1,9 +1,9 @@
-namespace: monk-vaultwarden
+namespace: vaultwarden
 
 stack:
   defines: process-group
   runnable-list:
-    - monk-vaultwarden/vaultwarden
+    - vaultwarden/vaultwarden
   variables:
     vault_port:
       type: int
