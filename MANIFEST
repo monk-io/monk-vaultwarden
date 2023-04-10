@@ -1,2 +1,2 @@
-REPO mssql
-LOAD vault.yml stack.yml
+REPO vaultwarden
+LOAD vault.yml

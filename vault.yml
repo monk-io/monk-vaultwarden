@@ -1,35 +1,56 @@
+---
 namespace: vaultwarden
 
-vaultwarden:
+base:
+  defines: runnable
   metadata:
-    defines: metadata
-    name: Vault Warder
-    description: Alternative implementation of the Bitwarden server API written in Rust and compatible with upstream Bitwarden clients*, perfect for self-hosted deployment where running the official resource-heavy service might not be ideal.
+    name: Vaultwarden
+    shortname: Vaultwarden
+    description: |
+      Alternative implementation of the Bitwarden server API written in Rust and compatible with upstream Bitwarden clients*, perfect for self-hosted deployment where running the official resource-heavy service might not be ideal.
     website: https://github.com/dani-garcia/vaultwarden
     publisher: monk.io
-    icon: logo.png
-  defines: runnable
+    icon: https://canada1.discourse-cdn.com/free1/uploads/vaultwarden/original/1X/3b5d7ef571abfb9fd85e99a0d6939e562b95f203.png
+    private: true
+    version: 1.0
+    tags: bitwarden, vaultwarden, password, devops
   variables:
     admin_token:
       env: ADMIN_TOKEN
       type: string
-      value: <- `${vaultwarden_admin_token}`
+      value: monk
     signup_enabled:
       env: SIGNUPS_ALLOWED
       type: bool
-      value: <- `${vaultwarden_signup_enabled}`
-    volume_local:
-      type: string
-      value: <- `${monk-volume-path}/vaultwarder`
+      value: true
   containers:
     monk-warden:
-      image: 'vaultwarden/server:latest'
-      ports:
-        - <- `0.0.0.0:${vault_port}:80`
+      image: vaultwarden/server
+      image-tag: latest
+
+vaultwarden:
+  defines: runnable
+  inherits: vaultwarden/base
+  metadata:
+    private: false
+  variables:
+    admin_token:
+      env: ADMIN_TOKEN
+      type: string
+      value: monk
+    signup_enabled:
+      env: SIGNUPS_ALLOWED
+      type: bool
+      value: true
+    vault_port:
+      type: int
+      value: 8084
+  containers:
+    monk-warden:
       paths:
-        - <- `${volume_local}:/data/`
+        - <- `${monk-volume-path}/vaultwarden:/data/`
   services:
-    vaultwarden-svc:
+    vaultwarden:
       container: monk-warden
       port: 80
       protocol: tcp
