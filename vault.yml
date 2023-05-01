@@ -45,10 +45,6 @@ vaultwarden:
     vault_port:
       type: int
       value: 8084
-  containers:
-    monk-warden:
-      paths:
-        - <- `${monk-volume-path}/vaultwarden:/data/`
   services:
     vaultwarden:
       container: monk-warden
