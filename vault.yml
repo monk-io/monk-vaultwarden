@@ -42,12 +42,15 @@ vaultwarden:
       env: SIGNUPS_ALLOWED
       type: bool
       value: true
-    vault_port:
-      type: int
-      value: 8084
+    volume_options:
+      env: I_REALLY_WANT_VOLATILE_STORAGE
+      type: string
+      value: true
   services:
     vaultwarden:
+      paths:
+        - <- `${monk-volume-path}/vaultwarden:/data`
       container: monk-warden
       port: 80
       protocol: tcp
-      host-port: <- `${vault_port}`
+      host-port: 80
