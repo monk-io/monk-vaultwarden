@@ -1,7 +1,0 @@
----
-namespace: vaultwarden
-
-stack:
-  defines: process-group
-  runnable-list:
-    - vaultwarden/vaultwarden

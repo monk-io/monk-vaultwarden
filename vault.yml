@@ -15,16 +15,12 @@ base:
     version: 1.0
     tags: bitwarden, vaultwarden, password, devops
   variables:
-    admin_token:
-      env: ADMIN_TOKEN
+    volume_options:
+      env: I_REALLY_WANT_VOLATILE_STORAGE
       type: string
-      value: monk
-    signup_enabled:
-      env: SIGNUPS_ALLOWED
-      type: bool
       value: true
   containers:
-    monk-warden:
+    vaultwarden:
       image: vaultwarden/server
       image-tag: latest
 
@@ -32,6 +28,16 @@ vaultwarden:
   defines: runnable
   inherits: vaultwarden/base
   metadata:
+    description: |
+      Alternative implementation of the Bitwarden server API written in Rust and compatible with upstream Bitwarden clients*, perfect for self-hosted deployment where running the official resource-heavy service might not be ideal.
+
+      ---
+
+      Notes:
+
+      This kit uses self signed certificate created by Monk.
+
+      ** It is strongly advised you as a user will update it **
     private: false
   variables:
     admin_token:
@@ -45,12 +51,27 @@ vaultwarden:
     volume_options:
       env: I_REALLY_WANT_VOLATILE_STORAGE
       type: string
-      value: true
-  services:
+      value: false
+  containers:
     vaultwarden:
       paths:
-        - <- `${monk-volume-path}/vaultwarden:/data`
-      container: monk-warden
+        - <- `${monk-volume-path}/vaultwarden:/data/`
+      environment:
+        - ROCKET_TLS={certs="/domain-crt.pem",key="/domain-key.pem"}
+  services:
+    vaultwarden:
+      container: vaultwarden
       port: 80
       protocol: tcp
-      host-port: 80
+      host-port: 443
+  files:
+    key:
+      container: vaultwarden
+      mode: 0644
+      path: /domain-key.pem
+      contents: <<< files/domain.key
+    crt:
+      container: vaultwarden
+      mode: 0644
+      path: /domain-crt.pem
+      contents: <<< files/domain.crt

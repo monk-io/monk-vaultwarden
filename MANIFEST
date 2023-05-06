@@ -1,2 +1,3 @@
 REPO vaultwarden
 LOAD vault.yml
+RESOURCES files/domain.key files/domain.crt
